@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { rootReducer } from './redux/rootReducer';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+// import { logger } from './redux/loger';
 
 const store = createStore(
   rootReducer, 
-  0,
-  applyMiddleware(thunk)
+  compose(
+    applyMiddleware(thunk, logger),
+  )
 )
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
