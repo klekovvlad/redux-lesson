@@ -8,7 +8,7 @@ import { asnycDecrement, changeTheme, decrement, increment } from "./redux/actio
 
 const App = (props) => {
 
-    const [state, setState] = useState(props.store.getState())
+    const [counter, setCounuter] = useState(props.store.getState().counter)
 
 
     const add = () => {
@@ -36,10 +36,10 @@ const App = (props) => {
     }
 
     props.store.subscribe(() => {
-        setState(props.store.getState())
-        document.body.className = state.theme.value;
+        setCounuter(props.store.getState().counter)
+        document.body.className = props.store.getState().theme.value;
         document.querySelectorAll('button').forEach(button => {
-            button.disabled = state.theme.disabled
+            button.disabled = props.store.getState().theme.disabled
         })
     })
 
@@ -57,7 +57,7 @@ const App = (props) => {
                 </Grid>
             </Grid>
             <div className="wrapper">
-                <Typography variant="body1" className="counter">Счетчик: <span className="value">{ state.counter }</span></Typography>
+                <Typography variant="body1" className="counter">Счетчик: <span className="value">{ counter }</span></Typography>
                 <ButtonGroup>
                     <Button variant="contained" color="success" onClick={() => { add() }}>Добавить</Button>
                     <Button variant="contained" color="error" onClick={() => { del() }}>Убрать</Button>
